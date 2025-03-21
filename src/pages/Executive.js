@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Placard01 from "@/components/Placard01"; // Importing the Placard component
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const router = useRouter(); // Initialize router
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,9 +21,7 @@ const Navbar = () => {
         isScrolled ? "bg-black/40 backdrop-blur-md" : "bg-black"
       }`}
     >
-      {/* Left Side: SVG Icon & Name */}
       <div className="flex items-center space-x-3">
-        {/* Puzzle Icon SVG */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -43,15 +42,25 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Right Side: Login/Signup */}
       <button
-        onClick={() => router.push("/Login")}
+        onClick={() => router.push("/")}
         className="px-4 py-1.5 text-white border border-green-400 rounded-full hover:bg-green-500 transition"
       >
-        Login/Signup
+        Home
       </button>
     </nav>
   );
 };
 
-export default Navbar;
+const Page = () => {
+  return (
+    <div className="bg-black min-h-screen">
+      <Navbar />
+      <div className="pt-28"> {/* Adjusting spacing between Navbar and Placard */}
+        <Placard01 />
+      </div>
+    </div>
+  );
+};
+
+export default Page;

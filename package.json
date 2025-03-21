@@ -9,13 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "chart.js": "^4.4.3",
     "express": "^4.19.2",
     "formidable": "^3.5.1",
     "fs": "^0.0.1-security",
     "ml-regression": "^5.0.0",
     "mongoose": "^8.5.1",
-    "next": "14.2.5",
+    "next": "^14.2.25",
     "next-on-netlify": "^2.7.2",
     "papaparse": "^5.4.1",
     "react": "^18",
