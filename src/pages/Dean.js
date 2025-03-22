@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Placard02 from "@/components/Placard02"; // Importing the updated Placard component
+import Placard02 from "@/components/Placard02"; 
+import ClubWalletSummary from "@/components/ClubWallet/ClubWalletSummary";
+// import FakeBlockchainModals from "@/components/ClubWallet/FakeBlockchainModal";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -52,12 +54,83 @@ const Navbar = () => {
   );
 };
 
+function SpendingApprovals() {
+  const [pending, setPending] = useState([
+    { id: 1, club: "Tech Club", purpose: "Event Setup", amount: 0.5 },
+    { id: 2, club: "Cultural Club", purpose: "Venue Booking", amount: 0.7 },
+  ]);
+  const [ethToInr, setEthToInr] = useState(null);
+
+  const handleAction = (id, action) => {
+    setPending((prev) => prev.filter((req) => req.id !== id));
+    console.log(`Dean ${action} request ID: ${id}`);
+  };
+
+  useEffect(() => {
+    const fetchEthPrice = async () => {
+      try {
+        const res = await fetch(
+          "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=inr"
+        );
+        const data = await res.json();
+        setEthToInr(data.ethereum.inr);
+      } catch (error) {
+        console.error("Error fetching ETH to INR:", error);
+      }
+    };
+
+    fetchEthPrice();
+  }, []);
+
+  return (
+    <div className="bg-black border border-gray-600 p-4 rounded-2xl shadow-lg w-full max-w-2xl mx-auto mt-6">
+      <h2 className="text-xl text-white font-bold mb-4">Pending Spending Requests</h2>
+      <div className="space-y-3">
+        {pending.map((req) => (
+          <div
+            key={req.id}
+            className="p-3 rounded-lg border border-gray-500 bg-gray-900 flex justify-between items-center"
+          >
+            <div>
+              <p className="text-gray-200 text-sm font-semibold">{req.club} - {req.purpose}</p>
+              <p className="text-gray-400 text-xs">Amount: {req.amount} ETH</p>
+              {ethToInr && (
+                <p className="text-green-400 text-xs">
+                  ₹ {(req.amount * ethToInr).toLocaleString("en-IN")}
+                </p>
+              )}
+            </div>
+            <div className="flex space-x-2">
+              <button
+                onClick={() => handleAction(req.id, "approved")}
+                className="px-3 py-1 bg-green-500 text-white text-xs rounded"
+              >
+                Approve
+              </button>
+              <button
+                onClick={() => handleAction(req.id, "rejected")}
+                className="px-3 py-1 bg-red-500 text-white text-xs rounded"
+              >
+                Reject
+              </button>
+            </div>
+          </div>
+        ))}
+        {pending.length === 0 && <p className="text-gray-500">No pending requests 🎉</p>}
+      </div>
+    </div>
+  );
+}
+
 const Page = () => {
   return (
     <div className="bg-black min-h-screen">
       <Navbar />
-      <div className="pt-28"> {/* Adjusting spacing between Navbar and Placard */}
+      <div className="pt-28 space-y-8 px-6">
         <Placard02 />
+        <ClubWalletSummary />
+        <SpendingApprovals />
+        {/* <FakeBlockchainModals /> */}
       </div>
     </div>
   );

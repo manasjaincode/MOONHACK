@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Placard01 from "@/components/Placard01"; // Importing the Placard component
+import Placard01 from "@/components/Placard01";
+import Executivetask from "@/components/Executivetask";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -53,11 +54,27 @@ const Navbar = () => {
 };
 
 const Page = () => {
+  const [rewardPoints, setRewardPoints] = useState(425);
+
+  const addPoints = (points) => {
+    setRewardPoints((prev) => prev + points);
+  };
+
   return (
     <div className="bg-black min-h-screen">
       <Navbar />
-      <div className="pt-28"> {/* Adjusting spacing between Navbar and Placard */}
-        <Placard01 />
+      <div className="pt-28 px-4 max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* Left Side */}
+          <div className="lg:w-1/3">
+            <Placard01 rewardPoints={rewardPoints} />
+          </div>
+
+          {/* Right Side */}
+          <div className="lg:w-2/3">
+            <Executivetask addPoints={addPoints} />
+          </div>
+        </div>
       </div>
     </div>
   );

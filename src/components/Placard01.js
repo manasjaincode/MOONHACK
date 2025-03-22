@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const Placard = () => {
+const Placard = ({ rewardPoints }) => {
   return (
     <div className="min-h-screen bg-[#000000] text-white p-6 flex gap-6">
       {/* Left Profile Section */}
@@ -43,7 +43,9 @@ const Placard = () => {
               height={30}
               className="object-contain"
             />
-            <span className="text-green-400 font-semibold">Reward Points - 425</span>
+            <span className="text-green-400 font-semibold">
+              Reward Points - {rewardPoints}
+            </span>
           </div>
 
           <p>📅 Member since : 15th June 2024</p>

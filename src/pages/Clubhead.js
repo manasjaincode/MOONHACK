@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Placard04 from "@/components/Placard04"; // Updated import to Placard04
-import TaskManager from "@/components/TaskManager"; // Import the TaskManager component
+import Placard04 from "@/components/Placard04"; 
+import TaskManager from "@/components/TaskManager"; 
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,6 +23,7 @@ const Navbar = () => {
       }`}
     >
       <div className="flex items-center space-x-3">
+        {/* Logo */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -57,10 +58,17 @@ const Page = () => {
   return (
     <div className="bg-black min-h-screen">
       <Navbar />
-      <div className="pt-28"> {/* Adjusting spacing between Navbar and Placard */}
-        <Placard04 /> {/* Updated to Placard04 */}
-        {/* Integrating TaskManager component */}
-        <TaskManager />
+      <div className="pt-28 flex justify-center">
+        <div className="flex flex-col md:flex-row gap-8 max-w-5xl w-[95%]">
+          {/* Left Side - Placard */}
+          <div className="flex-1">
+            <Placard04 />
+          </div>
+          {/* Right Side - Task Manager */}
+          <div className="w-full md:w-[300px]">
+            <TaskManager />
+          </div>
+        </div>
       </div>
     </div>
   );
