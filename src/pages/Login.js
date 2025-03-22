@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Link from 'next/link'; // Importing Link for routing
 
 // Dummy user data
 const users = [
@@ -48,12 +49,10 @@ const Navbar = () => {
         </div>
       </div>
 
-      <a
-        href="/"
-        className="px-5 py-2 text-white border border-green-400 rounded-full hover:bg-green-500 hover:text-black transition duration-300"
-      >
+      {/* Updated Link component for proper routing */}
+      <Link href="/" className="px-5 py-2 text-white border border-green-400 rounded-full hover:bg-green-500 hover:text-black transition duration-300">
         Home
-      </a>
+      </Link>
     </nav>
   );
 };
